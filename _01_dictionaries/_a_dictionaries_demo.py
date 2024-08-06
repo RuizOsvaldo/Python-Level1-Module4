@@ -67,3 +67,4 @@ for key, value in dict_1.items():
 print("\nAll values in p_table:")
 for value in p_table.values():
     print(str(value), end=', ')
+
