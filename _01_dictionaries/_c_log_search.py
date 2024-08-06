@@ -1,6 +1,8 @@
 """
 Log Search using a Id-Name Dictionary
 """
+import tkinter as tk
+from tkinter import simpledialog, messagebox
 
 # TODO: Create a dictionary of integers for the keys and strings for the values.
 #  Create a GUI app with three buttons. Look at 'log_search_example.png' in this
