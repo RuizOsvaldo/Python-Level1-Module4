@@ -5,56 +5,37 @@ import unittest
 
 # TODO: Return a dictionary with 4 key-value pairs
 def initialize_dictionary():
-<<<<<<< HEAD
-    my_dict = {1:"first", 2:"second", 3:"third", 4:"fourth"}
-    return my_dict
-=======
     dictionary = { 1 : "First", 2 : 'Second', 3 : 'Third', 4 : 'Fourth'}
     return dictionary
->>>>>>> 54caf13e53664093cee937277f5dd5e7298a2412
+
 
 # TODO: Return a dictionary using the two input parameter lists.
 #  The first element in both lists should be a key-value pair, same
 #  for the second, etc. Assume both input parameters have the same length.
 def initialize_dictionary_from_lists(keys, values):
-<<<<<<< HEAD
     my_dict = {}
     for i in range(len(keys)):
         my_dict[keys[i]] = values[i]
     return my_dict
-=======
-    dictionary = {}
-    for key, value in zip(keys, values):
-        dictionary[key] = value
-    return dictionary
->>>>>>> 54caf13e53664093cee937277f5dd5e7298a2412
 
 # TODO: Return a dictionary with the specified key's value updated to the new
 #  value. If the key does not exist in the dictionary, do not change the
 #  dictionary.
 def dictionary_update(dictionary, key, new_value):
-<<<<<<< HEAD
     for k in dictionary:
         if key == k:
             dictionary[k] = new_value
         
-=======
-    dictionary[key] = new_value
->>>>>>> 54caf13e53664093cee937277f5dd5e7298a2412
     return dictionary
 
 # TODO: Return a dictionary with the input dictionary's keys and values
 #  reversed.
 def reverse_key_values(dictionary):
-<<<<<<< HEAD
     new_dict = {}
     for key, value in dictionary.items():
         new_dict[value] = key
     return new_dict
-=======
-    reversed_dict = {value:key for key, value in dictionary.items()}
-    return reversed_dict
->>>>>>> 54caf13e53664093cee937277f5dd5e7298a2412
+
 
 # TODO Return a dictionary containing the matching key-value pairs from
 #  dict_1 and dict_2:

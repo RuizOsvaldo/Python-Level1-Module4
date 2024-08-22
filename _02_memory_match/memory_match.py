@@ -33,6 +33,17 @@ class MemoryMatch(tk.Tk):
         buttons_per_row = MemoryMatch.TOTAL_BUTTONS / 4
         button_width, button_height = self.setup_buttons(buttons_per_row)
 
+        # Dictionary for cards
+        self.card_dict = {}
+
+        # Creating 4 copies of numbers 1-13 then shuffling the order
+        numbers_list = list(range(1,14))*4
+        random.shuffle(numbers_list)
+
+        # Creating variable to hold the buttons that get clicked.
+        self.first_button = None
+        self.second_button = None
+
         for i in range(MemoryMatch.TOTAL_BUTTONS):
             row_num = int(i / buttons_per_row)
             col_num = int(i % buttons_per_row)
@@ -42,6 +53,9 @@ class MemoryMatch(tk.Tk):
             button = tk.Button(self, text='', fg='black', font=('arial', 24, 'bold'))
             button.place(x=col_x, y=row_y, width=button_width, height=button_height)
 
+            # Adding buttons to dictionary with number from number_list
+            self.card_dict[button] = numbers_list[i]
+
             button.bind('<ButtonPress>', self.on_button_press)
 
     def on_button_press(self, event):
@@ -49,9 +63,39 @@ class MemoryMatch(tk.Tk):
         print('Button ' + str(button_pressed) + ' was pressed')
 
         if button_pressed['state'] == tk.DISABLED:
-            button_pressed.configure(state=tk.NORMAL, text='ON')
-        elif button_pressed['state'] == tk.NORMAL:
-            button_pressed.configure(state=tk.DISABLED, text='OFF')
+            return
+        
+        #displaying each button that gets clicked. 
+        button_pressed.config(text=self.card_dict[button_pressed])
+
+        #NEXT STEP: Check how to match choices.
+        if self.first_button is None:
+            self.first_button = button_pressed
+            print(f"Button 1 is {self.first_button}")
+        elif self.second_button is None and button_pressed != self.first_button:
+            self.second_button = button_pressed
+            print(f"Button 2 is {self.second_button}")
+
+            self.after(500, self.check_match)  
+
+    
+    def check_match(self):
+        if self.card_dict[self.first_button] == self.card_dict[self.second_button]:
+            # If the numbers match, disable the buttons
+            self.first_button.config(state=tk.DISABLED)
+            self.second_button.config(state=tk.DISABLED)
+        else:
+            # If they don't match, hide the numbers again
+            self.first_button.config(text='')
+            self.second_button.config(text='')
+
+        # Reset selections
+        self.first_button = None
+        self.second_button = None
+
+        # Check if the game is complete
+        if all(button['state'] == tk.DISABLED for button in self.buttons_dict):
+            messagebox.showinfo("Congratulations!", "You matched all the pairs!")
 
     def setup_buttons(self, buttons_per_row):
         # Window size needs to be updated immediately here so the
